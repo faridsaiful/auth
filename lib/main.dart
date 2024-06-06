@@ -1,8 +1,14 @@
+library main;
+
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:myapp/homePage.dart';
 import 'package:myapp/loginPage.dart';
 import 'package:myapp/registrationPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+String greeting = 'Tekan Tombol';
 
 void main() {
   runApp(const MyApp());

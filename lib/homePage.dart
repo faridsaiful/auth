@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/loginPage.dart';
+import 'package:myapp/webView.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'main.dart';
 
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -20,7 +22,6 @@ class _HomePageState extends State<HomePage> {
 
   void initState() {
     super.initState();
-
   }
 
   Future<void> _loadTokens() async {
@@ -74,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () {
                         _loadToken();
                       },
-                      child: Text('Tekan Token')),
+                      child: Text(greeting)),
                   subtitle: ElevatedButton(
                       onPressed: () {
                         _clearToken();
@@ -117,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                             color: Colors.white,
                           ),
                           Text(
-                            "Aplikasi A",
+                            "Web View",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
@@ -126,7 +127,11 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      print('Web View');
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => WebView()));
+                    },
                   ),
                   TextButton(
                     child: Container(
