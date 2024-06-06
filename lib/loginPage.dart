@@ -4,7 +4,10 @@ import 'package:myapp/registrationPage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class Loginpage extends StatelessWidget {
+  String ff = "";
   Loginpage({super.key});
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
@@ -13,6 +16,13 @@ class Loginpage extends StatelessWidget {
 
   String _loginUrl =
       'https://fakestoreapi.com/auth/login'; // Replace with your actual URL
+
+  Future<void> SaveToken(String val) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('token', val);
+    print('simpan token ====  $val');
+    print(pref.getString('token'));
+  }
 
   Future<void> _login(BuildContext context) async {
     final response = await http.post(
@@ -25,9 +35,14 @@ class Loginpage extends StatelessWidget {
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
+      print(data['token']);
+      await SaveToken(data['token']);
+      // SharedPreferences prefs = await SharedPreferences.getInstance();
+      // // await prefs.setString('token', data['token']);
+      // prefs.setString('token', data['token'].toString());
 
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (contecx) {
-        return Homepage();
+        return HomePage();
       }));
     } else {
       print('Login failed: ${response.statusCode}');
@@ -46,7 +61,7 @@ class Loginpage extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) {
-            return Homepage();
+            return HomePage();
           }),
         );
       }
@@ -131,13 +146,11 @@ class Loginpage extends StatelessWidget {
                           onPressed: () {
                             print('klik login');
 
-                            // if (formkey.currentState!.validate()) {
-
-                            // Login(context, usernameController.text,
-                            //     passwordController.text);
-                            _login(context);
-
-                            // }
+                            if (formkey.currentState!.validate()) {
+                              // Login(context, usernameController.text,
+                              //     passwordController.text);
+                              _login(context);
+                            }
                           },
                           child: Text('Login')),
                     ],
