@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String ss = "";
+    String ss = "...";
 
     Future<void> cekLogin() async {
       final pref = await SharedPreferences.getInstance();

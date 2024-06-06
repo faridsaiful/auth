@@ -4,6 +4,7 @@ import 'package:myapp/webView.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -22,6 +23,14 @@ class _HomePageState extends State<HomePage> {
 
   void initState() {
     super.initState();
+  }
+
+  void _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   Future<void> _loadTokens() async {
@@ -158,7 +167,10 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      print('Open Browser');
+                      _launchURL('https://www.flutter.dev');
+                    },
                   ),
                   TextButton(
                     child: Container(
