@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
 
   void initState() {
     super.initState();
-    _loadToken();
+
   }
 
   Future<void> _loadTokens() async {
@@ -30,9 +30,23 @@ class _HomePageState extends State<HomePage> {
     // });
   }
 
+  // Future _loadToken() async {
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   print(pref.getString('token'));
+  // }
+
+  // Future _clearToken() async {
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   await pref.remove('token');
+  // }
+
+  String _token = 'Test';
   Future _loadToken() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     print(pref.getString('token'));
+    _token = pref.getString('token').toString();
+    setState(() {});
+    print(_token);
   }
 
   Future _clearToken() async {
@@ -60,12 +74,12 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () {
                         _loadToken();
                       },
-                      child: Text('Rofi Abul Hasani')),
+                      child: Text('Tekan Token')),
                   subtitle: ElevatedButton(
                       onPressed: () {
                         _clearToken();
                       },
-                      child: Text('$token')),
+                      child: Text('$_token')),
                   trailing: TextButton(
                     child: Icon(
                       Icons.logout_outlined,
