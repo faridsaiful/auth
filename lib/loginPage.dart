@@ -7,7 +7,6 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Loginpage extends StatelessWidget {
-  String ff = "";
   Loginpage({super.key});
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
